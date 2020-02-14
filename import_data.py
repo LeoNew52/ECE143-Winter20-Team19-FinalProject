@@ -1,5 +1,6 @@
 import csv
 from datetime import datetime #for time related data entries
+
 #########################################################################################
 #                                                                                       #
 # Definition:                                                                           #
@@ -25,6 +26,7 @@ from datetime import datetime #for time related data entries
 #    header,data=import_data('US_Accidents_Dec19.csv',read='col',samples=10,col_num=4)  #
 #                                                                                       #
 #########################################################################################
+
 def type_cast(func,data_entry,*args):
     """
     Applies 'func' on 'data_entry'. It is used as a type casting function. It takes care of edge cases.
