@@ -1,10 +1,30 @@
 import csv
 from datetime import datetime #for time related data entries
-
-#Examples:
-#header,data=import_data('US_Accidents_Dec19.csv',samples=10)
-#header,data=import_data('US_Accidents_Dec19.csv',read='col',samples=10,col_num=4)
-
+#########################################################################################
+#                                                                                       #
+# Definition:                                                                           #
+#                                                                                       #
+#    header,data=import_data(fname,read='row',samples=None,col_num=None)                #
+#                                                                                       #
+#    A function that imports the data from a csv file 'fname'. It returns the header    #
+#    and data as lists.                                                                 #
+#    You can return a partial sample by specifying the number of samples.               #
+#    Otherwise, it will return all samples.                                             #
+#    The function can either read rows of the dataset with read set to 'row'(default),  #
+#    or it can read sepecific column from the dataset when read is set to 'col'.        #
+#    The function can either read all the data, or extract a sample based on            #
+#    the value of 'samples'.                                                            #
+#    :fname: string specifing file name to import data from                             #
+#    :read: str to indicate wether to read rows or columns. 'row' (default) or 'col'    #
+#    :samples: int sepecifying samples to obtain. None (default) imports entire dataset #
+#    :col_num: column number to read from if read=='col'                                #
+#                                                                                       #
+# Examples:                                                                             #
+#                                                                                       #
+#    header,data=import_data('US_Accidents_Dec19.csv',samples=10)                       #
+#    header,data=import_data('US_Accidents_Dec19.csv',read='col',samples=10,col_num=4)  #
+#                                                                                       #
+#########################################################################################
 def type_cast(func,data_entry,*args):
     """
     Applies 'func' on 'data_entry'. It is used as a type casting function. It takes care of edge cases.
@@ -60,12 +80,23 @@ def format_column(data,col_num):
     
 def import_data(fname,read='row',samples=None,col_num=None):
     """
-    A function that imports the data from a csv file 'fname'. It returns the header and data as lists.
-    You can return a partial sample by specifying the number of samples. Otherwise, it will return all samples
-    :fname: string
-    :read: str to indicate wether to read rows or columns
-    :samples: int
+    A function that imports the data from a csv file 'fname'. It returns the header
+    and data as lists.
+    You can return a partial sample by specifying the number of samples.
+    Otherwise, it will return all samples.
+    The function can either read rows of the dataset with read set to 'row'(default),
+    or it can read sepecific column from the dataset when read is set to 'col'.
+    The function can either read all the data, or extract a sample based on
+    the value of 'samples'.
+    :fname: string specifing file name to import data from
+    :read: str to indicate wether to read rows or columns. 'row' (default) or 'col'
+    :samples: int sepecifying samples to obtain. None (default) imports entire dataset
     :col_num: column number to read from if read=='col'
+
+    Examples:
+
+    header,data=import_data('US_Accidents_Dec19.csv',samples=10)
+    header,data=import_data('US_Accidents_Dec19.csv',read='col',samples=10,col_num=4)
     """
     assert isinstance(fname,str)
     assert (isinstance(samples,int) and samples>0) or samples is None
