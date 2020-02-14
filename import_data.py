@@ -40,6 +40,14 @@ def format_row(row):
     return data_row
 
 def format_column(data,col_num):
+    """
+    Similar to format_row, except it takes a single data entery with its column number to typecast it
+    based on its column number.
+    :data: variable to by typecasted
+    :col_num: int, assigned column number
+    """
+    assert isinstance(col_num,int) and col_num>=0
+    
     if col_num in [0,1,11,13,14,15,16,17,19,20,21,28,31,45,46,47,48]: return data #emptry string will NOT return None
     if col_num in [2,3,12,18]: return type_cast(lambda x: int(float(x)),data)
     if col_num in [6,7,8,9,10,23,24,25,26,27,29,30]: return type_cast(float,data)
@@ -70,23 +78,26 @@ def import_data(fname,read='row',samples=None,col_num=None):
     data=[]
     
     #Format database, since CSV is all strings. If data empty or formatted incorrectly, then return None.
+    
+    #Row import
     if read=='row':
-        if isinstance(samples,int):
+        if isinstance(samples,int): #Import sample
             for j in range(samples):
                 row=next(reader)
                 data.append(format_row(row))
-        elif samples is None:
+        elif samples is None: #Import all
             for row in reader:
                 data.append(format_row(row))
         else:
             raise 'samples variable error'
-            
+    
+    #Column import
     if read=='col':
-        if isinstance(samples,int):
+        if isinstance(samples,int): #Import sample
             for j in range(samples):
                 row=next(reader)
                 data.append(format_column(row[col_num],col_num))
-        elif samples is None:
+        elif samples is None: #Import all
             for row in reader:
                 data.append(format_column(row[col_num],col_num))
         else:
