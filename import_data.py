@@ -22,7 +22,8 @@ def type_cast(func,data_entry,*args):
 
 def format_row(row):
     """
-    A formatting function specific to our US accidents dataset
+    A formatting function specific to our US accidents dataset. CSV files are strings. Therefore, we need
+    to type cast them to the appropriate type
     :row: input list, which is a row from the dataset
     """
     assert isinstance(row,list)
@@ -67,7 +68,7 @@ def import_data(fname,read='row',samples=None,col_num=None):
     :col_num: column number to read from if read=='col'
     """
     assert isinstance(fname,str)
-    assert (isinstance(samples,int) and n>0) or samples is None
+    assert (isinstance(samples,int) and samples>0) or samples is None
     assert read=='row' or (read=='col' and isinstance(col_num,int) and col_num>=0)
     
     #import CSV file
