@@ -58,7 +58,54 @@ def get_county_fips_code(fname, state_col,county_col):
     for i in range(len(state)):
         fips[i]=af.get_county_fips(county[i], state[i])
     return fips
+    
+from urllib.request import urlopen
+import json
+import numpy as np
+import pandas as pd
+import plotly.figure_factory as ff
 
+def plot_county_accident_rates():
+    #Code template from https://plot.ly/python/choropleth-maps/
+    
+    #Import county geoJSON information
+    with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
+        counties = json.load(response)
+        
+    #Format as dataframe with pandas
+    fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
+    fipss=count_data(fips)
+    #plot_dict={'fips':list(fipss.keys()),'count':list(fipss.values())}
+    #df=pd.DataFrame(plot_dict)
+    
+    #Plot with plotly
+colorscale = ["#f7fbff", "#ebf3fb", "#deebf7", "#d2e3f3", "#c6dbef", "#b3d2e9", "#9ecae1",
+    "#85bcdb", "#6baed6", "#57a0ce", "#4292c6", "#3082be", "#2171b5", "#1361a9",
+    "#08519c", "#0b4083", "#08306b"
+]
+
+endpts = [225000*np.exp(i/10) for i in range(11)]
+
+fig = ff.create_choropleth(
+    fips=list(fipss.keys()), values=list(fipss.values()), scope=['usa'],
+    binning_endpoints=endpts, colorscale=colorscale,
+    show_state_data=False,
+    show_hover=True,
+    asp = 2.9,
+    title_text = 'USA by Unemployment %',
+    legend_title = '% unemployed'
+)
+fig.layout.template = None
+fig.show()
+fig = px.choropleth(df, geojson=counties, locations='fips', color='count',
+                           color_continuous_scale="Viridis",
+                           range_color=[0,225000],
+                           color_continuous_midpoint=1000,
+                           scope="usa",
+                           labels={'unemp':'unemployment rate'}
+                          )
+fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+fig.show()
     
 
 #fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
