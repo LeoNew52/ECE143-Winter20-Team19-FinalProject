@@ -75,37 +75,26 @@ def plot_county_accident_rates():
     #Format as dataframe with pandas
     fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
     fipss=count_data(fips)
-    #plot_dict={'fips':list(fipss.keys()),'count':list(fipss.values())}
-    #df=pd.DataFrame(plot_dict)
+    fips_code=list(fipss.keys())
+    fips_count=list(fipss.values())
+    assert len(fips_code)==len(fips_count)
+    for i,code in enumerate(fips_code):
+        if not isinstance(code,str):
+            fips_code.pop(i)
+            fips_count.pop(i)
     
+    plot_dict={'fips':list(fipss.keys()),'count':list(fipss.values())}
+    df=pd.DataFrame(plot_dict)
     #Plot with plotly
-colorscale = ["#f7fbff", "#ebf3fb", "#deebf7", "#d2e3f3", "#c6dbef", "#b3d2e9", "#9ecae1",
-    "#85bcdb", "#6baed6", "#57a0ce", "#4292c6", "#3082be", "#2171b5", "#1361a9",
-    "#08519c", "#0b4083", "#08306b"
-]
+    import plotly.express as px
 
-endpts = [225000*np.exp(i/10) for i in range(11)]
-
-fig = ff.create_choropleth(
-    fips=list(fipss.keys()), values=list(fipss.values()), scope=['usa'],
-    binning_endpoints=endpts, colorscale=colorscale,
-    show_state_data=False,
-    show_hover=True,
-    asp = 2.9,
-    title_text = 'USA by Unemployment %',
-    legend_title = '% unemployed'
-)
-fig.layout.template = None
-fig.show()
-fig = px.choropleth(df, geojson=counties, locations='fips', color='count',
+    fig = px.choropleth(df, geojson=counties, locations='fips', color=np.log10(df["count"]),
                            color_continuous_scale="Viridis",
-                           range_color=[0,225000],
-                           color_continuous_midpoint=1000,
+                           range_color=(0, 6),
                            scope="usa",
                            labels={'unemp':'unemployment rate'}
                           )
-fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-fig.show()
-    
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig.show()
 
 #fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
