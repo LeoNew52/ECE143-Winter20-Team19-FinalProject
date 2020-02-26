@@ -58,43 +58,80 @@ def get_county_fips_code(fname, state_col,county_col):
     for i in range(len(state)):
         fips[i]=af.get_county_fips(county[i], state[i])
     return fips
+
+import csv
+
+def get_population_per_county():
+    '''
+    Returns a dictionsary with fips codes as keys and population estimate in 2018 as its value
+    Make sure to download the PEP_2018 file form GitHub
+    '''
+    out_dict={}
+    f=open('PEP_2018_PEPANNRES_with_ann.csv','r',newline='',encoding='latin-1')
+    reader=csv.reader(f)
+    header1=next(reader)
+    header2=next(reader)
+    for row in reader:
+            out_dict[row[1]]=int(row[13])
+    return out_dict, header1, header2
     
 from urllib.request import urlopen
 import json
 import numpy as np
 import pandas as pd
-import plotly.figure_factory as ff
+import plotly.express as px
+import matplotlib.pyplot as plt
 
 def plot_county_accident_rates():
+    '''Call this file'''
     #Code template from https://plot.ly/python/choropleth-maps/
     
     #Import county geoJSON information
     with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
         counties = json.load(response)
         
-    #Format as dataframe with pandas
+    #Obtain accidents per county
     fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
     fipss=count_data(fips)
     fips_code=list(fipss.keys())
     fips_count=list(fipss.values())
     assert len(fips_code)==len(fips_count)
+
+    #Remove None types
     for i,code in enumerate(fips_code):
         if not isinstance(code,str):
             fips_code.pop(i)
             fips_count.pop(i)
+            
+    #Get poverty rates per county
+    #make sure to install xlrd 'pip install xlrd'
+    df_pov=pd.read_excel('est18all.xlsx',converters={'State FIPS Code':str,'County FIPS Code':str})
+    df_pov['FIPS Code']=df_pov.apply(lambda df_pov: df_pov['State FIPS Code']+df_pov['County FIPS Code'], axis=1)
     
-    plot_dict={'fips':list(fipss.keys()),'count':list(fipss.values())}
-    df=pd.DataFrame(plot_dict)
-    #Plot with plotly
-    import plotly.express as px
+    #Get population data and obtain accidents per capita
+    pop,h1,h2=get_population_per_county()
+    accident_per_capita={}
+    for x in fips_code:
+        if x in pop.keys():
+            accident_per_capita[x]=(fipss[x]/pop[x])
+    plot_dict={'FIPS Code':list(accident_per_capita.keys()),'Accident Per Capita':list(accident_per_capita.values())}
+    df_apc=pd.DataFrame(plot_dict)
 
-    fig = px.choropleth(df, geojson=counties, locations='fips', color=np.log10(df["count"]),
-                           color_continuous_scale="Viridis",
-                           range_color=(0, 6),
-                           scope="usa",
-                           labels={'unemp':'unemployment rate'}
-                          )
+    #Plot accidents per capita with plotly
+    fig = px.choropleth(df_apc, geojson=counties, locations='FIPS Code', color=np.log10(df['Accident Per Capita']),
+                        color_continuous_scale="Viridis",
+                        scope="usa",
+                        labels={'apc':'Accidents Per Capita'},
+                        title='Accidents Per Capita (Logarithmic)')
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     fig.show()
-
+    
+    #Combine APC and poverty into single df and plot scatter
+    df=pd.merge(df_pov,df_apc)
+    df=df.drop([index for index, row in df.iterrows() if row['Accident Per Capita']>0.1]) #drop 3 outliers
+    plt.scatter(df['Poverty Percent, All Ages'],df['Accident Per Capita'])
+    
+    #Find correlation
+    df['Poverty Percent, All Ages']=df['Poverty Percent, All Ages'].astype('float')
+    df.corr()
 #fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
