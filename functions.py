@@ -35,7 +35,7 @@ def plot_bar_charts(data, title, plot_kind="bar", normal=False, rotation=0, stac
         ylabel_coordinate: Coordinate of y label
         title_fontsize: Font size for title
         title_weight: Different weight on title
-        tilte_y: Adjust height of title
+        title_y: Adjust height of title
         ifledgend: If we need to mark ledgend or not
         ledgend_name: A tuple contains desired showed ledgend name
         ledgend_fontsize: Font size for ledgend
