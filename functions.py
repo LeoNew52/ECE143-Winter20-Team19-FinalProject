@@ -66,7 +66,7 @@ def plot_bar_charts(data, title, plot_kind="bar", normal=False, rotation=0, stac
     if ylabel_coordinate: assert isinstance(ylabel_coordinate, tuple)
     if title_fontsize: assert isinstance(title_fontsize, int)
     if title_weight: assert isinstance(title_weight, str)
-    if tilte_y: assert isinstance(tilte_y, int)
+    if title_y: assert isinstance(title_y, int)
     assert isinstance(ifledgend, bool)
     if ledgend_name: assert isinstance(ledgend_name, tuple)
     if ledgend_fontsize: assert isinstance(ledgend_fontsize, int)
