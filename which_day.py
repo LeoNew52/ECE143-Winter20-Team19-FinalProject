@@ -1,5 +1,3 @@
-import pandas as pd
-
 def which_day(date_time):
     '''
     To find out which weekday according to given timestamp
@@ -7,11 +5,12 @@ def which_day(date_time):
     return: nth day of the week
     '''
 
-    assert isinstance(data_time, string)
-    assert len(data_time) > 0
+    assert isinstance(date_time, str)
+    assert len(date_time) > 0
 
     from datetime import datetime
     import calendar
+    import pandas as pd
 
     try:
         if type(date_time) is str:
