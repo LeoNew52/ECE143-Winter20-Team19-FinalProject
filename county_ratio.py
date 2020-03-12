@@ -1,4 +1,5 @@
 import collections
+import csv
 def factor1_county(fname):
     '''
     Find the number of accidents happened in each county and their ratio.
@@ -6,6 +7,7 @@ def factor1_county(fname):
     :output percentage: the percentage of accidents happened in each county
     '''
     
+
     assert isinstance(fname, str)
     
     f = open(fname,'r',newline ='')
@@ -13,7 +15,7 @@ def factor1_county(fname):
     header = next(reader)
     
     county_list = []
-    
+
     for row in reader:
         county_list.append(row[16])
         
@@ -23,11 +25,8 @@ def factor1_county(fname):
     total_case = sum(freq.values())
     for key,value in freq.items():
         percentage[key] = value/total_case
-        print(key," -> ",value)
-    
-    for key,value in percentage.items():
-        print(key," -> ",value)
     
     
-    f.close()    
-    return percentage
+    
+    f.close()
+    return freq.items()

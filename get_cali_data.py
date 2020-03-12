@@ -29,7 +29,7 @@ def get_cali_data(fname):
     reader = csv.reader(f)
     header = next(reader)
     
-    with open('CA_data.csv','w') as csvfile:
+    with open('CA_data.csv','w',newline = '') as csvfile:
         writer = csv.writer(csvfile,delimiter =',',quotechar ='"',quoting=csv.QUOTE_MINIMAL)
         writer.writerow(header)
         for row in reader:
@@ -37,3 +37,4 @@ def get_cali_data(fname):
                 writer.writerow(row)
             else:
                 pass
+    f.close()
