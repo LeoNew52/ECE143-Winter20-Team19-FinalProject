@@ -12,7 +12,7 @@ def count_data(inlist):
         outdict[element]+=1 #Count
     return outdict
 
-def count_days_of_week():
+def get_day_of_week():
     '''
     A function specific to our dataset that reterns the number of accidents in each day of the week
     '''
@@ -82,16 +82,19 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
-def plot_county_accident_rates():
-    '''Call this file'''
-    #Code template from https://plot.ly/python/choropleth-maps/
+def plot_county_accident_rates(fname):
+    '''
+    Creates scatterplot of addcident per capita vs poverty rate
+    :fname: string containing name of dataframe
+    '''
+    #Code template from https://plot.ly/python/choropleth-maps/ for the choropleth map portion only
     
     #Import county geoJSON information
     with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
         counties = json.load(response)
         
     #Obtain accidents per county
-    fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
+    fips=get_county_fips_code(fname, 17, 16)
     fipss=count_data(fips)
     fips_code=list(fipss.keys())
     fips_count=list(fipss.values())
@@ -118,20 +121,26 @@ def plot_county_accident_rates():
     df_apc=pd.DataFrame(plot_dict)
 
     #Plot accidents per capita with plotly
-    fig = px.choropleth(df_apc, geojson=counties, locations='FIPS Code', color=np.log10(df['Accident Per Capita']),
+    fig1 = px.choropleth(df_apc, geojson=counties, locations='FIPS Code', color=np.log10(df_apc['Accident Per Capita']),
                         color_continuous_scale="Viridis",
                         scope="usa",
                         labels={'apc':'Accidents Per Capita'},
                         title='Accidents Per Capita (Logarithmic)')
-    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-    fig.show()
+    fig1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig1.show()
     
     #Combine APC and poverty into single df and plot scatter
     df=pd.merge(df_pov,df_apc)
     df=df.drop([index for index, row in df.iterrows() if row['Accident Per Capita']>0.1]) #drop 3 outliers
-    plt.scatter(df['Poverty Percent, All Ages'],df['Accident Per Capita'])
-    
+    plt.scatter(df['Poverty Percent, All Ages'],df['Accident Per Capita'],alpha=0.2)
+    plt.xlabel('Poverty Percentage')
+    plt.ylabel('Accident Per Capita')
+    plt.title('Distribution of Accidents per County')
+
     #Find correlation
     df['Poverty Percent, All Ages']=df['Poverty Percent, All Ages'].astype('float')
     df.corr()
-#fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
+    
+    
+    return df
+    #fips=get_county_fips_code('US_Accidents_Dec19.csv', 17, 16)
