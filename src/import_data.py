@@ -108,7 +108,6 @@ def import_data(fname,read='row',samples=None,col_num=None):
     
     f=open(fname,'r',newline='')
     reader=csv.reader(f)
-    f.close()
     header=next(reader)
     data=[]
     
@@ -137,5 +136,5 @@ def import_data(fname,read='row',samples=None,col_num=None):
                 data.append(format_column(row[col_num],col_num))
         else:
             raise 'samples variable error'
-    
+            
     return header,data
