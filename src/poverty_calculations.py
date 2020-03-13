@@ -12,7 +12,7 @@ def count_data(inlist):
         outdict[element]+=1 #Count
     return outdict
 
-def get_day_of_week():
+def count_days_of_week():
     '''
     A function specific to our dataset that reterns the number of accidents in each day of the week
     '''
