@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import which_day as wd
+import src.which_day as wd
 
 #read the .csv file to get the data
 data = pd.read_csv('./US_Accidents_Dec19.csv')

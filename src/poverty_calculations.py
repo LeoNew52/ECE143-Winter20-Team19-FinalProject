@@ -1,4 +1,13 @@
-from importData import *
+from import_data import *
+from urllib.request import urlopen
+import json
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import matplotlib.pyplot as plt
+import addfips #https://github.com/fitnr/addfips
+import csv
+
 
 def count_data(inlist):
     '''
@@ -39,8 +48,6 @@ def sort_by_county():
     header,counties= import_data('US_Accidents_Dec19.csv',read='col',samples=None,col_num=16)
     return count_data(counties)
 
-import addfips #https://github.com/fitnr/addfips
-
 def get_county_fips_code(fname, state_col,county_col):
     '''
     A function that uses the addfips library to assign fips codes accordingly to our data.
@@ -61,8 +68,6 @@ def get_county_fips_code(fname, state_col,county_col):
         fips[i]=af.get_county_fips(county[i], state[i])
     return fips
 
-import csv
-
 def get_population_per_county():
     '''
     Returns a dictionsary with fips codes as keys and population estimate in 2018 as its value
@@ -77,12 +82,6 @@ def get_population_per_county():
             out_dict[row[1]]=int(row[13])
     return out_dict, header1, header2
     
-from urllib.request import urlopen
-import json
-import numpy as np
-import pandas as pd
-import plotly.express as px
-import matplotlib.pyplot as plt
 
 def plot_county_accident_rates(fname):
     '''
