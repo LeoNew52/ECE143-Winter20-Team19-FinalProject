@@ -1,3 +1,5 @@
+from importData import *
+
 def count_data(inlist):
     '''
     A counter function that counts the occurance of each element in the list and returns in into a dictionary
