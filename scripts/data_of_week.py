@@ -1,7 +1,31 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import src.which_day as wd
+
+def which_day(date_time):
+    '''
+    To find out which weekday according to given timestamp
+    input: datetime string with the format of 'yyyy-mm-dd hh:mm:ss'
+    return: nth day of the week
+    '''
+
+    assert isinstance(date_time, str)
+    assert len(date_time) > 0
+
+    from datetime import datetime
+    import calendar
+    import pandas as pd
+
+    try:
+        if type(date_time) is str:
+            my_string=date_time.split(' ')[0]
+            my_date = datetime.strptime(my_string, "%Y-%m-%d")
+            return my_date.weekday()
+        else:
+            raise Exception("'date_time' has unexpected data type, it is expected to be a sting")
+
+    except Exception as e:
+        print(e)
 
 #read the .csv file to get the data
 data = pd.read_csv('./US_Accidents_Dec19.csv')
@@ -10,7 +34,7 @@ data = pd.read_csv('./US_Accidents_Dec19.csv')
 nth_day=[]
 date_time=[dt for dt in data['Start_Time']]
 for i in range(len(date_time)):
-    nth_day.append(wd.which_day(date_time[i]))
+    nth_day.append(which_day(date_time[i]))
 
 # add four new columns 'year', 'month', 'hour', 'weekday'
 data['year'] = pd.DatetimeIndex(data['Start_Time']).year
