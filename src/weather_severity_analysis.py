@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from src.functions.weather_severity import create_weather_severity_df
+from functions.weather_severity import create_weather_severity_df
 
 def weather_severity_analysis_demo(data):
     data = data[data["State"] == "CA"]
@@ -42,3 +42,10 @@ def weather_severity_analysis_demo(data):
     plt.title("Severity percentage to Weather condition", fontdict = {'fontsize': 150}, weight='bold', y=1.06)
     plt.savefig("Severity percentage to Weather condition", transparent=True)
     plt.show()
+
+def main():
+    data = pd.read_csv('./US_Accidents_Dec19.csv')
+    weather_severity_analysis_demo(data)
+
+if __name__ == '__main__':
+    main()
