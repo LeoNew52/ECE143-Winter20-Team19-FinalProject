@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from functions.weather_severity import create_weather_severity_df
+from src.functions.weather_severity import create_weather_severity_df
 
 def weather_severity_analysis_demo(data):
     """
@@ -10,7 +10,7 @@ def weather_severity_analysis_demo(data):
         data: input pandas DataFrame
     """
     assert isinstance(data, pd.DataFrame)
-    
+
     data = data[data["State"] == "CA"]
     
     #Count total accident numbers under different severity
