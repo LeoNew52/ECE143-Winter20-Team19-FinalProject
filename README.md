@@ -7,7 +7,7 @@
 #### Data Loading:  
 
 * Import the main dataset *US Accidents* via python command `data = pd.read_csv('./US_Accidents_Dec19.csv')`. Remember to import necessary libaries, for example, Pandas libarary is utilized here.
-
+* The main dataset we used 'US_Accidents_Dec19.csv' is too large to be uploaded to Github. This dataset can be downloaded at https://www.kaggle.com/sobhanmoosavi/us-accidents.
 #### Data Analysis and Visulazation:
 
 	1. General Analysis over nationwide data
