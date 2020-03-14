@@ -4,6 +4,13 @@ import matplotlib.pyplot as plt
 from functions.weather_severity import create_weather_severity_df
 
 def weather_severity_analysis_demo(data):
+    """
+    Run the analysis for percentage of each severity under different weather conditions
+    args:
+        data: input pandas DataFrame
+    """
+    assert isinstance(data, pd.DataFrame)
+    
     data = data[data["State"] == "CA"]
     
     #Count total accident numbers under different severity
