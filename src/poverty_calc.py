@@ -1,4 +1,4 @@
-from functions.poverty_calculations import count_data, plot_county_accident_rates
+from functions.poverty_calculations import count_data, plot_county_accident_rates,get_county_fips_code
 
 def get_poverty_plots_demo(fname):
     df_pov=plot_county_accident_rates(fname)
@@ -11,7 +11,7 @@ def get_poverty_plots_demo(fname):
         n_vehicle_fips[fips]=list(n_vehicles.values())[i]
     df_vehicle=pd.DataFrame({'FIPS Code':list(n_vehicle_fips.keys()),'Number of Vehicles':list(n_vehicle_fips.values())})
     df_vehicle=pd.merge(df_pov,df_vehicle)
-    fipss=pc.count_data(pc.get_county_fips_code(fname, 17, 16))
+    fipss=count_data(get_county_fips_code(fname, 17, 16))
     temp_df=pd.DataFrame({'FIPS Code':list(fipss.keys()),'Accident Total':list(fipss.values())})
     df_vehicle=pd.merge(df_vehicle,temp_df)
     df_vehicle['Accident per Vehicle']=df_vehicle.apply(lambda df:df['Accident Total']/df['Number of Vehicles'],axis=1)
