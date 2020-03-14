@@ -13,7 +13,7 @@ def get_population_CA():
     :return: output, dict
     '''
 
-    fin = open('src/files/population_county_CA.txt','r')
+    fin = open('./src/files/population_county_CA.txt','r')
 
 
     population = {}
@@ -37,7 +37,7 @@ def get_n_vehicles_CA():
     purpose: to get a dictionary of California's number of registered vehicles stats of each county
     :return: output, dict
     '''
-    fin = open('src/files/vehicles_number.txt','r')
+    fin = open('./src/files/vehicles_number.txt','r')
 
     n_vehicles = {}
 
@@ -59,7 +59,7 @@ def get_area_CA():
     purpose: to get a dictionary of California's area stats of each county
     :return: output, dict
     '''
-    fin = open('src/files/county_area.txt','r')
+    fin = open('./src/files/county_area.txt','r')
 
     area = {}
 

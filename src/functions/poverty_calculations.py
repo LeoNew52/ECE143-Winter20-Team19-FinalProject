@@ -1,4 +1,4 @@
-from src.functions.import_data import *
+from functions.import_data import *
 from urllib.request import urlopen
 import json
 import numpy as np
@@ -74,7 +74,7 @@ def get_population_per_county():
     Make sure to download the PEP_2018 file form GitHub
     '''
     out_dict={}
-    f=open('PEP_2018_PEPANNRES_with_ann.csv','r',newline='',encoding='latin-1')
+    f=open('./src/files/PEP_2018_PEPANNRES_with_ann.csv','r',newline='',encoding='latin-1')
     reader=csv.reader(f)
     header1=next(reader)
     header2=next(reader)
@@ -109,7 +109,7 @@ def plot_county_accident_rates(fname):
             
     #Get poverty rates per county
     #make sure to install xlrd 'pip install xlrd'
-    df_pov=pd.read_excel('est18all.xlsx',converters={'State FIPS Code':str,'County FIPS Code':str})
+    df_pov=pd.read_excel('./src/files/est18all.xlsx',converters={'State FIPS Code':str,'County FIPS Code':str})
     df_pov['FIPS Code']=df_pov.apply(lambda df_pov: df_pov['State FIPS Code']+df_pov['County FIPS Code'], axis=1)
     
     #Get population data and obtain accidents per capita

@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from src.functions.weather_severity import create_weather_severity_df
+from functions.weather_severity import create_weather_severity_df
 
 def weather_severity_analysis_demo(data):
     """

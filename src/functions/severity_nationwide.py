@@ -1,4 +1,4 @@
-import src.functions.import_data as iD
+import functions.import_data as iD
 import pandas as pd
 def is_highway(description):
     '''

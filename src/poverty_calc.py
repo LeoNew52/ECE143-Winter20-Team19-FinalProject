@@ -20,4 +20,10 @@ def get_poverty_plots_demo(fname):
                                 label='big')
     poverty_scatter.set_title('California')
     poverty_scatter.set_ylabel(ylabel='Accident \n per Vehicle',rotation=0,y=1.08)
+
+def main():
+    get_poverty_plots_demo('./US_Accidents_Dec19.csv')
+
+if __name__ == '__main__':
+    main()
     
