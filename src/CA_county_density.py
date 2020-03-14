@@ -1,12 +1,12 @@
 import numpy as np
-from src.functions.county_ratio import factor1_county
+from functions.county_ratio import factor1_county
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure
 import csv
 from adjustText import adjust_text
-from src.functions.CA_county_density_functions import get_population_CA,get_n_vehicles_CA,get_area_CA,get_n_accidents_CA,data_process_CA
-from src.functions.get_cali_data import get_cali_data
+from functions.CA_county_density_functions import get_population_CA,get_n_vehicles_CA,get_area_CA,get_n_accidents_CA,data_process_CA
+from functions.get_cali_data import get_cali_data
 
 
 def CA_county_density_demo(filename):
@@ -95,3 +95,9 @@ def CA_county_density_demo(filename):
     plt.ylabel('number of accidents\n per sq mi',fontsize = 12,rotation = 0)
     fig2.savefig('vehicle.png', transparent=True)
     plt.show()
+
+def main():
+    CA_county_density_demo('./US_Accidents_Dec19.csv')
+
+if __name__ == '__main__':
+    main()
