@@ -42,7 +42,10 @@
 	   	-> run command: python src/severity_nationwide.py
 
 	   	-> description: This script analyzes our original dataset and plots how
-			  severity is related to highway trafic and the day of the week
+			  severity is related to highway trafic and the day of the week.
+			  Detection of a highway is done by checking if a highway was
+			  mentioned in the description of the accident, and the day of
+			  accident is provided.
 
 		d). Number of Accidents regarding to poverity distribution
 
@@ -50,9 +53,11 @@
 
 	   	-> run command: src/poverty_calculations.py
 
-	   	-> description: The script analyzes the two dataset (us accidents and
-			  poverty distribution) and analyze on the possible linearity between
-			  two datasets.
+	   	-> description: This script extracts poverty, population, and vehicle
+			  statistics from multiple sources (Census Bureau, DMV) and
+			  processes them to find correlations between poverty rates
+			  and accidents per capita nationwide, as well as poverty rates
+			  vs accidents per vehicle in California 
 
 
 	2. Analysis focusing on California dataset:
