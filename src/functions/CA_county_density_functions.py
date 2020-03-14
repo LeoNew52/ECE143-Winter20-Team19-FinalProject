@@ -1,6 +1,6 @@
 import os
 import numpy as np
-from src.county_ratio import factor1_county
+from src.functions.county_ratio import factor1_county
 import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import figure

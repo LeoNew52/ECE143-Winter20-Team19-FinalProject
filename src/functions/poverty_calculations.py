@@ -1,4 +1,4 @@
-from src.import_data import *
+from src.functions.import_data import *
 from urllib.request import urlopen
 import json
 import numpy as np

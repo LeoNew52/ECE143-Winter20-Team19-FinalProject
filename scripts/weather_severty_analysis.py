@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from src.weather_severity import create_weather_severity_df
 
 data = pd.read_csv('./US_Accidents_Dec19.csv')
 data = data[data["State"] == "CA"]
@@ -67,6 +68,7 @@ weather_severity_percentage = weather_severity_percentage.T
 #Replace some weather name with a shorter one
 weather_severity_percentage = weather_severity_percentage.rename(
 {'Blowing Dust / Windy': 'Blowing Dust', 'Widespread Dust / Windy': 'Widespread Dust'}, axis='index')
+weather_severity_percentage = create_weather_severity_df(data, weather_choosed)
 
 #Plot the stacked bar chart with percentage dataframe which are calculated above
 ax = weather_severity_percentage.plot(kind="barh", stacked=True, rot=0, figsize=(80,50), fontsize=70, cmap="coolwarm")
