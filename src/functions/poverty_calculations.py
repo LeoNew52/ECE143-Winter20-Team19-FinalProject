@@ -9,7 +9,7 @@ import addfips #https://github.com/fitnr/addfips
 import csv
 
 
-def count_data(inlist):
+def count_data_demo(inlist):
     '''
     A counter function that counts the occurance of each element in the list and returns in into a dictionary
     with keys representing elements and values representing occurances.
