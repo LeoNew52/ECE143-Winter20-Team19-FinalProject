@@ -1,4 +1,4 @@
-from src.import_data import *
+from src.functions.import_data import *
 from urllib.request import urlopen
 import json
 import numpy as np
@@ -9,7 +9,7 @@ import addfips #https://github.com/fitnr/addfips
 import csv
 
 
-def count_data(inlist):
+def count_data_demo(inlist):
     '''
     A counter function that counts the occurance of each element in the list and returns in into a dictionary
     with keys representing elements and values representing occurances.
@@ -83,7 +83,7 @@ def get_population_per_county():
     return out_dict, header1, header2
     
 
-def plot_county_accident_rates(fname):
+def plot_county_accident_rates_demo(fname):
     '''
     Creates scatterplot of addcident per capita vs poverty rate
     :fname: string containing name of dataframe
