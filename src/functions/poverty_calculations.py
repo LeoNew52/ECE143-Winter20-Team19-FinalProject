@@ -83,7 +83,7 @@ def get_population_per_county():
     return out_dict, header1, header2
     
 
-def plot_county_accident_rates(fname):
+def plot_county_accident_rates_demo(fname):
     '''
     Creates scatterplot of addcident per capita vs poverty rate
     :fname: string containing name of dataframe
