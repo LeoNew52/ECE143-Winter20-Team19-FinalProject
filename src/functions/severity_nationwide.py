@@ -17,7 +17,7 @@ def get_day_of_week(time):
     for i in time:
         out.append(i.strftime('%A'))
     return out
-def get_highway_accidents_and_severity_demo():
+def get_highway_accidents_and_severity():
     header,severity=iD.import_data('US_Accidents_Dec19.csv',read='col',samples=None,col_num=3)
     header,description=iD.import_data('US_Accidents_Dec19.csv',read='col',samples=None,col_num=11)
     header,start_time=iD.import_data('US_Accidents_Dec19.csv',read='col',samples=None,col_num=4)
