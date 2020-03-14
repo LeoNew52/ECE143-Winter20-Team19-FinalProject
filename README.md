@@ -41,11 +41,8 @@
 
 	   	-> run command: python src/severity_nationwide.py
 
-	   	-> description: The function being called is "import_data(fname,read='row',
-			  samples=None,col_num=None)". The "fname" is the filename to import.
-			  The "read"
-
-				**Left for Yazeed to help finsihed, sorry about this**
+	   	-> description: This script analyzes our original dataset and plots how
+			  severity is related to highway trafic and the day of the week
 
 		d). Number of Accidents regarding to poverity distribution
 
@@ -53,7 +50,7 @@
 
 	   	-> run command: src/poverty_calculations.py
 
-	   	-> description: The script analysis the two dataset (us accidents and
+	   	-> description: The script analyzes the two dataset (us accidents and
 			  poverty distribution) and analyze on the possible linearity between
 			  two datasets.
 
